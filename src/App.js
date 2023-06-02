@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { ChakraProvider, IconButton, Icon } from '@chakra-ui/react';
+import { FaCog } from 'react-icons/fa';
+import { useDisclosure } from '@chakra-ui/react';
+import SettingsModal from './Grid-Layout/SettingsModal';
+import GridLayout from './Grid-Layout/GridLayout';
 
 function App() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [visibleBoxes, setVisibleBoxes] = useState({
+    a: true,
+    b: true,
+    c: true,
+  });
+  const [boxCount, setBoxCount] = useState(3);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ChakraProvider>
+      <IconButton
+        aria-label="Settings"
+        icon={<Icon as={FaCog} />}
+        onClick={onOpen}
+      />
+      <SettingsModal
+        isOpen={isOpen}
+        onClose={onClose}
+        visibleBoxes={visibleBoxes}
+        setVisibleBoxes={setVisibleBoxes}
+        boxCount={boxCount}
+        setBoxCount={setBoxCount}
+      />
+
+      <GridLayout visibleBoxes={visibleBoxes} boxCount={boxCount} />
+    </ChakraProvider>
   );
 }
 
