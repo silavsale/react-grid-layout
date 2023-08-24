@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-grid-layout
+  labels:
+    app: react-grid-layout
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react-grid-layout
+  template:
+    metadata:
+      labels:
+        app: react-grid-layout
+    spec:
+      containers:
+      - name: react-grid-layout
+        image: silavsale/react-grid-layout
+        ports:
+        - containerPort: 80
